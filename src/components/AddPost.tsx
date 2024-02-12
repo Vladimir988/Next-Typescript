@@ -1,12 +1,12 @@
 import React, {FC, useState} from 'react';
 
 type Props = {
-    savePost: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, formData: IPost) => void
+    savePost: (e: React.FormEvent<HTMLFormElement>, formData: IPost) => void
 }
 
 const AddPost: FC<Props> = ({savePost}) => {
     const [formData, setFormData] = useState<IPost>();
-    const changeHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const changeHandler = (e: React.FormEvent<HTMLFormElement>) => {
         setFormData((prevState) => ({
             ...prevState,
             [e.target?.id]: e.target?.value,
