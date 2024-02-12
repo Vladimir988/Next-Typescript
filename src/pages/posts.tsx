@@ -1,4 +1,4 @@
-import {useState, FormEvent} from "react";
+import {useState, ChangeEvent} from "react";
 import AddPost from '@/components/AddPost';
 import Post from '@/components/Post';
 import {InferGetStaticPropsType} from 'next';
@@ -7,7 +7,7 @@ const API_URL: string = 'https://jsonplaceholder.typicode.com/posts';
 
 export default function Posts({posts}: InferGetStaticPropsType<typeof getStaticProps>) {
     const [postList, setPostList] = useState(posts);
-    const addPost = async (e: FormEvent, formData: IPost) => {
+    const addPost = async (e: ChangeEvent, formData: IPost) => {
         e.preventDefault();
         const post: IPost = {
             id: Math.floor(100 + Math.random() * 900),

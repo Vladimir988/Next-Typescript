@@ -1,7 +1,7 @@
 import React, {FC, useState} from 'react';
 
 type Props = {
-    savePost: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, formData: IPost) => void
+    savePost: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, formData: IPost) => void
 }
 
 const AddPost: FC<Props> = ({savePost}) => {
