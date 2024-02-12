@@ -1,27 +1,28 @@
-import * as React from 'react';
+import React, {FC, useState} from 'react';
 
 type Props = {
-    savePost: (e: React.FormEvent, formData: IPost) => void
+    savePost: (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, formData: IPost) => void
 }
 
-const AddPost: React.FC<Props> = ({ savePost }) => {
-    const [formData, setFormData] = React.useState<IPost>()
-    const handleForm = (e: React.FormEvent<HTMLInputElement>): void => {
+const AddPost: FC<Props> = ({savePost}) => {
+    const [formData, setFormData] = useState<IPost>();
+    const changeHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData((prevState) => ({
             ...prevState,
-            [e.currentTarget?.id]: e.currentTarget?.value,
+            [e.target?.id]: e.target?.value,
         } as IPost));
-    };
+    }
+
     return (
         <form className='Form' onSubmit={(e) => savePost(e, formData as IPost)}>
-            <div>
+            <div className='input-wrap'>
                 <div className='Form--field'>
                     <label htmlFor='name'>Title</label>
-                    <input onChange={handleForm} type='text' id='title' />
+                    <input onChange={changeHandler} type='text' id='title' name='title' placeholder='Title'/>
                 </div>
                 <div className='Form--field'>
                     <label htmlFor='body'>Description</label>
-                    <input onChange={handleForm} type='text' id='body' />
+                    <textarea onChange={changeHandler} name='body' id='body' rows='5' placeholder='Description'></textarea>
                 </div>
             </div>
             <button
@@ -33,4 +34,5 @@ const AddPost: React.FC<Props> = ({ savePost }) => {
         </form>
     )
 }
-export default AddPost
+
+export default AddPost;

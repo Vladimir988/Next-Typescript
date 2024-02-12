@@ -1,0 +1,41 @@
+.navbar {
+  width: 100%;
+  background: #f5f5f5;
+  border-bottom: 1px solid lightgrey;
+  padding: 0;
+}
+
+.list {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.link {
+  color: #920dbb;
+  text-decoration: none;
+  position: relative;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.link:before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: #920dbb;
+  -webkit-transition: 0.6s;
+  -moz-transition: 0.6s;
+  -ms-transition: 0.6s;
+  -o-transition: 0.6s;
+  transition: 0.6s;
+}
+
+.link:hover:before {
+  width: 100%;
+  left: 0;
+}
