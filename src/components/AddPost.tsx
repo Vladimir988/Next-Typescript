@@ -6,10 +6,10 @@ type Props = {
 
 const AddPost: FC<Props> = ({savePost}) => {
     const [formData, setFormData] = useState<IPost>();
-    const changeHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    const changeHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData((prevState) => ({
             ...prevState,
-            [e.target?.id]: e.target?.value,
+            [e.target?.name]: e.target?.value,
         } as IPost));
     }
 
