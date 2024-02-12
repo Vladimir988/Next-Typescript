@@ -22,7 +22,7 @@ export default function Posts({posts}: InferGetStaticPropsType<typeof getStaticP
         setPostList(posts);
     }
 
-    if (!postList) return <h1>Loading...</h1>
+    if (!postList) return <h1>Loading...</h1>;
 
     return (
         <main className='container'>
@@ -32,7 +32,7 @@ export default function Posts({posts}: InferGetStaticPropsType<typeof getStaticP
                 <Post key={post.id} deletePost={deletePost} post={post}/>
             ))}
         </main>
-    )
+    );
 }
 
 export async function getStaticProps() {

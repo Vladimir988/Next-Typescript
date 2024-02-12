@@ -1,7 +1,7 @@
 import React, {FC, useState} from 'react';
 
 type Props = {
-    savePost: (e: React.FormEvent<HTMLFormElement>, formData: IPost) => void
+    savePost: (e: React.FormEvent<HTMLFormElement>, formData: IPost) => void;
 }
 
 const AddPost: FC<Props> = ({savePost}) => {
@@ -32,7 +32,7 @@ const AddPost: FC<Props> = ({savePost}) => {
                 Add Post
             </button>
         </form>
-    )
+    );
 }
 
 export default AddPost;

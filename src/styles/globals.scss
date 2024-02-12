@@ -31,7 +31,8 @@ h1 {
     font-size: 1.1rem;
 }
 
-button {
+button,
+.btn {
     padding: 0.4rem 1rem;
     font-size: 1rem;
     font-weight: 600;
@@ -39,6 +40,7 @@ button {
     border: none;
     cursor: pointer;
     outline: none;
+    text-decoration: none;
 }
 
 .Card {
@@ -58,10 +60,17 @@ button {
     color: #999;
 }
 
+.btn-block {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .Card__button {
     background: #fff;
     border: 1px solid #920dbb;
     color: #920dbb;
+    line-height: 1;
     -webkit-transition: 0.3s;
     -moz-transition: 0.3s;
     -ms-transition: 0.3s;
