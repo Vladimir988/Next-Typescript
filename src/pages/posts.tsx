@@ -3,6 +3,7 @@ import AddPost from '@/components/AddPost';
 import Post from '@/components/Post';
 import {InferGetStaticPropsType} from 'next';
 import Head from "next/head";
+import Select from "@/components/Ui/Select";
 
 const API_URL: string = 'https://jsonplaceholder.typicode.com/posts';
 
@@ -25,6 +26,13 @@ export default function Posts({posts}: InferGetStaticPropsType<typeof getStaticP
         setPostList(posts);
     }
 
+    const [selectedSort, setSelectedSort] = useState('');
+
+    const sortPosts = (sort) => {
+        setSelectedSort(sort);
+        setPostList([...postList].sort((a, b) => a[sort].localeCompare(b[sort])));
+    }
+
     if (!postList) return <h1>Loading...</h1>;
 
     return (
@@ -36,6 +44,17 @@ export default function Posts({posts}: InferGetStaticPropsType<typeof getStaticP
             </Head>
             <h1>{title}:</h1>
             <AddPost savePost={addPost}/>
+
+            <Select
+                defaultValue="Sort by"
+                value={selectedSort}
+                onChange={sort => sortPosts(sort)}
+                options={[
+                    {value: 'title', name: 'Sort by title'},
+                    {value: 'body', name: 'Sort by description'}
+                ]}
+            />
+            
             {postList.map((post: IPost) => (
                 <Post key={post.id} deletePost={deletePost} post={post}/>
             ))}
