@@ -3,10 +3,16 @@ import Link from "next/link";
 import {GetServerSideProps, InferGetServerSidePropsType} from 'next';
 import {IPost, IComment} from "@/types";
 import React from "react";
+import Head from "next/head";
 
 export default function SinglePost({post, comments}: InferGetServerSidePropsType<typeof getServerSideProps>) {
     return (
         <div className={`container ${css.post}`}>
+            <Head>
+                <meta name="title" content={post.title}></meta>
+                <meta name="description" content={post.body}></meta>
+                <title>{post.title}</title>
+            </Head>
             <Link className={css.back} href='/posts'>← Back</Link>
             <h1>{post.title}</h1>
             <p>{post.body}</p>

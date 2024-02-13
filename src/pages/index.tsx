@@ -1,9 +1,17 @@
 import React from 'react';
+import Head from "next/head";
 
 export default function Index() {
+    const title = 'Home page';
+    const descr = 'Lorem ipsum dolor sit amet';
     return (
         <main className='container'>
-            <h1>Home page</h1>
+            <Head>
+                <meta name="title" content={title}></meta>
+                <meta name="description" content={descr}></meta>
+                <title>{title}</title>
+            </Head>
+            <h1>{title}</h1>
             <br/>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             <br/>
