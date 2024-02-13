@@ -8,6 +8,7 @@ const Navbar: FC = () => {
             <div className={scc.list}>
                 <Link className={scc.link} href="/">Home</Link>
                 <Link className={scc.link} href="/posts">Posts</Link>
+                <Link className={scc.link} href="/todos">Todos</Link>
             </div>
         </nav>
     );

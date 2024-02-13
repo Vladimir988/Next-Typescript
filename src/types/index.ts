@@ -12,14 +12,8 @@ export interface IComment {
     body: string;
 }
 
-export interface IMeta {
-    title?: string;
-    name: string;
-    content: string;
-}
-
-
-interface ListProps<T> {
-    items: T[];
-    renderItem: (item: T) => React.ReactNode;
+export interface ITodo {
+    id: number;
+    title: string;
+    completed: boolean;
 }
