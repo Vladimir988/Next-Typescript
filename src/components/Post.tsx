@@ -1,5 +1,6 @@
 import {FC} from 'react';
 import Link from "next/link";
+import {IPost} from "@/types";
 
 type Props = {
     post: IPost;

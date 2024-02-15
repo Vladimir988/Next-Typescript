@@ -2,7 +2,6 @@ export interface IPost {
     id: number;
     title: string;
     body: string;
-    comment?: IComment;
 }
 
 export interface IComment {
@@ -16,4 +15,9 @@ export interface ITodo {
     id: number;
     title: string;
     completed: boolean;
+}
+
+export interface IOptions {
+    value: string;
+    name: string;
 }
