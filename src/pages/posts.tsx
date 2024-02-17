@@ -8,6 +8,10 @@ import {IPost} from "@/types";
 
 const API_URL: string = 'https://jsonplaceholder.typicode.com/posts';
 
+function Input(props: { onChange: (value: (((prevState: string) => string) | string)) => void, placeholder: string, type: string, value: string }) {
+    return null;
+}
+
 export default function Posts({posts}: InferGetStaticPropsType<typeof getStaticProps>) {
     const title = 'Posts';
     const descr = 'Lorem ipsum dolor sit amet';
@@ -28,13 +32,26 @@ export default function Posts({posts}: InferGetStaticPropsType<typeof getStaticP
     }
 
     const [selectedSort, setSelectedSort] = useState('');
-
     const sortPosts = (sort: keyof IPost) => {
         setSelectedSort(sort);
-        setPostList([...postList].sort((post, postNext) => {
-            return post[sort].toString().localeCompare(postNext[sort].toString());
-        }));
     }
+
+    function getSortedPosts() {
+        console.log('selectedSort');
+        console.log(selectedSort.length);
+        console.log(selectedSort);
+        if(selectedSort) {
+            return [...postList].sort((post: IPost, postNext: IPost) => {
+                return post[selectedSort].toString().localeCompare(postNext[selectedSort].toString());
+            });
+        }
+
+        return postList;
+    }
+
+    const sortedPosts = getSortedPosts();
+
+    const [searchQuery, setSearchQuery] = useState('');
 
     if (!postList) return <h1>Loading...</h1>;
 
@@ -48,6 +65,13 @@ export default function Posts({posts}: InferGetStaticPropsType<typeof getStaticP
             <h1>{title}:</h1>
             <AddPost savePost={addPost}/>
 
+            <input
+                type="text"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+            />
+
             <Select
                 defaultValue="Sort by"
                 value={selectedSort}
@@ -58,7 +82,7 @@ export default function Posts({posts}: InferGetStaticPropsType<typeof getStaticP
                 ]}
             />
             
-            {postList.map((post: IPost) => (
+            {sortedPosts.map((post: IPost) => (
                 <Post key={post.id} deletePost={deletePost} post={post}/>
             ))}
         </main>
