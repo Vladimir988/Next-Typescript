@@ -30,7 +30,7 @@ export default function Posts({posts}: InferGetStaticPropsType<typeof getStaticP
 
     const [selectedSort, setSelectedSort] = useState('');
     const sortPosts = (sort: keyof IPost) => {
-        setSelectedSort(sort);
+        setSelectedSort(sort.toString());
     }
 
     const sortedPosts = useMemo(() => {
@@ -61,8 +61,6 @@ export default function Posts({posts}: InferGetStaticPropsType<typeof getStaticP
             <AddPost savePost={addPost}/>
 
             <Input
-                type="text"
-                placeholder="Search..."
                 value={searchQuery}
                 onChange={setSearchQuery}
             />
