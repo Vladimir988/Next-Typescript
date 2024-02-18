@@ -1,16 +1,13 @@
-import React, {useState} from "react";
+import React, {useMemo, useState} from "react";
 import AddPost from '@/components/AddPost';
 import Post from '@/components/Post';
 import {InferGetStaticPropsType} from 'next';
 import Head from "next/head";
 import Select from "@/components/Ui/Select";
+import Input from "@/components/Ui/Input";
 import {IPost} from "@/types";
 
 const API_URL: string = 'https://jsonplaceholder.typicode.com/posts';
-
-function Input(props: { onChange: (value: (((prevState: string) => string) | string)) => void, placeholder: string, type: string, value: string }) {
-    return null;
-}
 
 export default function Posts({posts}: InferGetStaticPropsType<typeof getStaticProps>) {
     const title = 'Posts';
@@ -36,10 +33,7 @@ export default function Posts({posts}: InferGetStaticPropsType<typeof getStaticP
         setSelectedSort(sort);
     }
 
-    function getSortedPosts() {
-        console.log('selectedSort');
-        console.log(selectedSort.length);
-        console.log(selectedSort);
+    const sortedPosts = useMemo(() => {
         if(selectedSort) {
             return [...postList].sort((post: IPost, postNext: IPost) => {
                 return post[selectedSort].toString().localeCompare(postNext[selectedSort].toString());
@@ -47,11 +41,12 @@ export default function Posts({posts}: InferGetStaticPropsType<typeof getStaticP
         }
 
         return postList;
-    }
-
-    const sortedPosts = getSortedPosts();
+    }, [selectedSort, postList]);
 
     const [searchQuery, setSearchQuery] = useState('');
+    const sortedAndSearchedPosts = useMemo(() => {
+        return sortedPosts.filter(post => post.title.toLowerCase().includes(searchQuery.toLowerCase()));
+    }, [searchQuery, sortedPosts]);
 
     if (!postList) return <h1>Loading...</h1>;
 
@@ -65,11 +60,11 @@ export default function Posts({posts}: InferGetStaticPropsType<typeof getStaticP
             <h1>{title}:</h1>
             <AddPost savePost={addPost}/>
 
-            <input
+            <Input
                 type="text"
                 placeholder="Search..."
                 value={searchQuery}
-                onChange={e => setSearchQuery(e.target.value)}
+                onChange={setSearchQuery}
             />
 
             <Select
@@ -82,9 +77,9 @@ export default function Posts({posts}: InferGetStaticPropsType<typeof getStaticP
                 ]}
             />
             
-            {sortedPosts.map((post: IPost) => (
+            {sortedAndSearchedPosts.length ? sortedAndSearchedPosts.map((post: IPost) => (
                 <Post key={post.id} deletePost={deletePost} post={post}/>
-            ))}
+            )) : <h2 style={{textAlign: 'center'}}>Posts not found!</h2>}
         </main>
     );
 }
