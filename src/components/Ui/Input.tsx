@@ -1,3 +1,4 @@
+import css from "@/styles/Input.module.scss";
 import React, {FC} from 'react';
 
 type Props = {
@@ -8,6 +9,7 @@ type Props = {
 const Input: FC<Props> = ({value, onChange}) => {
     return (
         <input
+            className={css.input}
             type="text"
             placeholder="Search..."
             value={value}
