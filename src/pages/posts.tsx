@@ -2,10 +2,10 @@ import React, {useMemo, useState} from "react";
 import AddPost from '@/components/AddPost';
 import Post from '@/components/Post';
 import {InferGetStaticPropsType} from 'next';
-import Head from "next/head";
 import Select from "@/components/Ui/Select";
 import Input from "@/components/Ui/Input";
 import {IPost} from "@/types";
+import HeadMeta from "@/components/Ui/HeadMeta";
 
 const API_URL: string = 'https://jsonplaceholder.typicode.com/posts';
 
@@ -52,11 +52,7 @@ export default function Posts({posts}: InferGetStaticPropsType<typeof getStaticP
 
     return (
         <main className='container'>
-            <Head>
-                <meta name="title" content={title}></meta>
-                <meta name="description" content={descr}></meta>
-                <title>{title}</title>
-            </Head>
+            <HeadMeta title={title} body={descr}/>
             <h1>{title}:</h1>
             <AddPost savePost={addPost}/>
 

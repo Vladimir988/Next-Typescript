@@ -1,7 +1,7 @@
 import css from "@/styles/Input.module.scss";
 import React, {FC} from 'react';
 
-type Props = {
+interface Props {
     value: string;
     onChange: (value: string) => void;
 }

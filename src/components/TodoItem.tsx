@@ -1,3 +1,4 @@
+import css from "@/styles/TodoItem.module.scss";
 import React, {FC, useState} from 'react';
 import {ITodo} from "@/types";
 
@@ -8,9 +9,13 @@ type Props = {
 const TodoItem: FC<Props> = ({todo}) => {
     const [checked, setChecked] = useState(todo.completed);
 
+    const setCheckedHandler = (): void => {
+        setChecked(!checked);
+    }
+
     return (
-        <div style={{padding: '20px', borderRadius: '5px', margin: '5px 0', border: '1px solid #920dbb'}}>
-            <input type="checkbox" checked={checked} onChange={() => setChecked(!checked)}/> || {todo.id}. {todo.title}
+        <div className={css.todoItem}>
+            <input type="checkbox" checked={checked} onChange={setCheckedHandler}/> || {todo.id}. {todo.title}
         </div>
     );
 };
