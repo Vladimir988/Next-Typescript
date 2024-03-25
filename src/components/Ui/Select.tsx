@@ -2,7 +2,7 @@ import css from "@/styles/Select.module.scss";
 import {IOptions, IPost} from "@/types";
 import {FC} from "react";
 
-type Props = {
+interface Props {
     defaultValue: string;
     options: IOptions[];
     value: string;
