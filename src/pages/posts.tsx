@@ -6,13 +6,16 @@ import Select from "@/components/Ui/Select";
 import Input from "@/components/Ui/Input";
 import {IPost} from "@/types";
 import HeadMeta from "@/components/Ui/HeadMeta";
+import {POST_CONSTANTS} from "@/constants/posts.data";
 
 const API_URL: string = 'https://jsonplaceholder.typicode.com/posts';
 
 export default function Posts({posts}: InferGetStaticPropsType<typeof getStaticProps>) {
-    const title = 'Posts';
-    const descr = 'Lorem ipsum dolor sit amet';
+    const title = POST_CONSTANTS.title;
+    const descr = POST_CONSTANTS.description;
     const [postList, setPostList] = useState(posts);
+    const [selectedSort, setSelectedSort] = useState('');
+    const [searchQuery, setSearchQuery] = useState('');
     const addPost = async (e: React.FormEvent, formData: IPost) => {
         e.preventDefault();
         const post: IPost = {
@@ -28,22 +31,21 @@ export default function Posts({posts}: InferGetStaticPropsType<typeof getStaticP
         setPostList(posts);
     }
 
-    const [selectedSort, setSelectedSort] = useState('');
     const sortPosts = (sort: keyof IPost) => {
         setSelectedSort(sort.toString());
     }
 
     const sortedPosts = useMemo(() => {
-        if(selectedSort) {
-            return [...postList].sort((post: IPost, postNext: IPost) => {
-                return post[selectedSort].toString().localeCompare(postNext[selectedSort].toString());
-            });
-        }
+        if (!selectedSort) return postList;
 
-        return postList;
+        return [...postList].sort((post: IPost, postNext: IPost) => {
+            const current = post[selectedSort] as string;
+            const next = postNext[selectedSort] as string;
+            return current.localeCompare(next);
+        });
+
     }, [selectedSort, postList]);
 
-    const [searchQuery, setSearchQuery] = useState('');
     const sortedAndSearchedPosts = useMemo(() => {
         return sortedPosts.filter(post => post.title.toLowerCase().includes(searchQuery.toLowerCase()));
     }, [searchQuery, sortedPosts]);
@@ -62,17 +64,16 @@ export default function Posts({posts}: InferGetStaticPropsType<typeof getStaticP
             />
 
             <Select
-                defaultValue="Sort by"
+                defaultValue='Sort by'
                 value={selectedSort}
                 onChange={sortPosts}
-                options={[
-                    {value: 'title', name: 'Sort by title'},
-                    {value: 'body', name: 'Sort by description'}
-                ]}
+                options={POST_CONSTANTS.select}
             />
             
             {sortedAndSearchedPosts.length ? sortedAndSearchedPosts.map((post: IPost) => (
                 <Post key={post.id} deletePost={deletePost} post={post}/>
+
+                //if !sortedAndSearchedPosts.length
             )) : <h2 style={{textAlign: 'center'}}>Posts not found!</h2>}
         </main>
     );
